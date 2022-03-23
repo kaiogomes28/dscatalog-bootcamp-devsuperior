@@ -11,7 +11,7 @@ const Routess = () => (
     <BrowserRouter>
         <Navbar />
         <Routes>
-            <Route path="/" element={<Home />} >
+            <Route path="/" element={<Home />}>
             </Route>
             <Route path="/products" element={<Catalog />}>
             </Route>
