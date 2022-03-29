@@ -1,22 +1,24 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import List from './List';
+import Form from './Form';
 
 const Products = () => {
     return (
-        <div>
-            <Routes>
-                <Route path="/admin/products">
-                    <h1>Exibir a listagem de produtos</h1>
+        <div>             
+            <Switch>
+                <Route path="/admin/products" exact>
+                    <List />
                 </Route>
-                <Route path="/admin/create">
-                    <h1>Criar novo produto</h1>
+                <Route path="/admin/products/create">
+                    <Form />
                 </Route>
-                <Route path="/admin/:productId">
+                <Route path="/admin/products/:productId">
                     <h1>Editar novo prouto</h1>
                 </Route>
-            </Routes>
+            </Switch>
         </div>
-    )
+    );
 }
 
 export default Products;

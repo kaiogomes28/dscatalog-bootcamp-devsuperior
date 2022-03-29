@@ -1,20 +1,24 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Switch } from "react-router";
 import Navbar from './components/Navbar';
+import Products from './components/Products';
 import './styles.scss';
 
 const Admin = () => (
     <div className="admin-container">
         <Navbar />
         <div className="admin-content">
-            <Routes>
-                <Route path="/admin/products" element={<Admin />}>
+            <Switch>
+                <Route path="/admin/products">
+                    <Products />
                 </Route>
-                <Route path="/admin/categories" element={<Admin />}>
+                <Route path="/admin/categories">
+                    <h1>Categories</h1>
                 </Route>
-                <Route path="/admin/users" element={<Admin />}>
+                <Route path="/admin/users">
+                    <h1>Users</h1>
                 </Route>
-            </Routes>
+            </Switch>
         </div>
     </div>
 );
