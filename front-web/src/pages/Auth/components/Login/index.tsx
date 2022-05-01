@@ -13,8 +13,8 @@ type FormData = {
 }
 
 const Login = () => {
-    const { register, handleSubmit } = useForm<FormData>();
-    const [hasError, setHasError] = useState(false);
+    const { register, handleSubmit, formState:{ errors } } = useForm<FormData>();
+    const [hasError, setHasError ] = useState(false);
     const history = useHistory();
 
     const onSubmit = (data: FormData) => {
@@ -33,24 +33,44 @@ const Login = () => {
         <AuthCard title="login">
             {hasError && (
                 <div className="alert alert-danger mt-5">
-                Usuário ou senha inválidos!
-            </div>
+                    Usuário ou senha inválidos!
+                </div>
             )}
             <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-                <input 
-                {...register("username", {required: true})}
-                type="email" 
-                className="form-control input-base margin-bottom-30" 
-                placeholder="Email"
-                name="username"
-                />
-                <input 
-                {...register("password", {required: true})}
-                type="password" 
-                className="form-control input-base" 
-                placeholder="Senha"
-                name="password"
-                />
+                <div className="margin-bottom-30">
+                    <input 
+                    {...register("username", {
+                        required: "Campo obrigatório",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Email inválido"
+                        }
+                      })}
+                    type="email" 
+                    className={`form-control input-base ${errors.username  ? 'is-invalid' : '' }`}
+                    placeholder="Email"
+                    name="username"
+                    />
+                    {errors.username && (
+                        <div className="invalid-feedback d-block">
+                        {errors.username.message}
+                    </div>
+                    )}
+                </div>
+                <div className="margin-bottom-30">
+                    <input 
+                    {...register("password", { required: "Campo obrigatório" })}
+                    type="password" 
+                    className={`form-control input-base ${errors.password ? 'is-invalid' : '' }`}
+                    placeholder="Senha"
+                    name="password"
+                    />
+                    {errors.password && (
+                    <div className="invalid-feedback d-block">
+                        {errors.password.message}
+                    </div>
+                    )}
+                </div>
                 <Link to="/admin/auth/recover" className="login-link-recover">
                     Esqueci a senha?
                 </Link>
